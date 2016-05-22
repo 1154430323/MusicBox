@@ -1,0 +1,85 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ListView
+        android:id="@+id/song_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_orange_light"
+        >
+    </ListView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@android:color/holo_purple"
+        >
+
+        <ImageButton
+            android:id="@+id/playPause_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@android:drawable/ic_media_play"
+            android:layout_alignTop="@+id/previous_btn"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:id="@+id/previous_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@android:drawable/ic_media_previous"
+            android:layout_alignTop="@+id/next_btn"
+            android:layout_toStartOf="@+id/playPause_btn"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <ImageButton
+            android:id="@+id/next_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@android:drawable/ic_media_next"
+            android:layout_marginStart="42dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/playPause_btn" />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/playPause_btn"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/start_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="00:00"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/seekBar"
+            android:layout_alignStart="@+id/seekBar" />
+
+        <TextView
+            android:id="@+id/end_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="00:00"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="5dp"
+            android:layout_below="@+id/seekBar"
+            android:layout_alignEnd="@+id/seekBar" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
