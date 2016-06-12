@@ -1,5 +1,6 @@
 package com.tom.musicbox;
 
+import android.app.Fragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -9,7 +10,9 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
+import android.nfc.Tag;
 import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,14 +26,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.baoyz.actionsheet.ActionSheet;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener, ActionSheet.ActionSheetListener{
         ImageButton playPauseBtn, nextBtn, previousBtn;
         SeekBar seekBar;
         TextView startTimerTextView, endTimerTextView;
@@ -367,20 +373,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh_settings:
-                Toast.makeText(getApplicationContext(),"Item 1 Selected",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item 1 Selected", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.action_settings:
-                Toast.makeText(getApplicationContext(),"Item 2 Selected",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item 2 Selected", Toast.LENGTH_LONG).show();
+                openActionSheet();
                 return true;
             default:
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+    protected void  openActionSheet(){
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("Cancel")
+                .setOtherButtonTitles("Item1", "Item2", "Item3", "Item4")
+                .setCancelableOnTouchOutside(true)
+                .setListener(this).show();
     }
 
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+    }
+
+    static  String TAG = "MainActivity";
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+
+        switch (index){
+
+            case 0:
+                Log.d(TAG,"0 Check");
+                break;
+            case 1:
+                Log.d(TAG,"1 Check");
+                break;
+            case 2:
+                Log.d(TAG,"2 Check");
+                break;
+            case 3:
+                Log.d(TAG,"3 Check");
+                break;
+            case 4:
+                Log.d(TAG,"4 Check");
+                break;
+            default:
+                break;
+
+
+        }
+
+    }
 
     /**
      * Send simple notification using the NotificationCompat API.

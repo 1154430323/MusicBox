@@ -1,7 +1,9 @@
 package com.tom.musicbox;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Editable;
@@ -14,7 +16,7 @@ import android.widget.EditText;
 /**
  * Created by tom on 2016/5/21.
  */
-public class LoginActivity  extends Activity implements View.OnClickListener{
+public class LoginActivity  extends Activity implements View.OnClickListener {
 
     Button loginBtn;
     EditText userNameEditText, passwordEditText;
@@ -23,9 +25,9 @@ public class LoginActivity  extends Activity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_login);
-        userNameEditText = (EditText)findViewById(R.id.username_edit);
-        passwordEditText = (EditText)findViewById(R.id.password_edit);
-        loginBtn = (Button)findViewById(R.id.login_btn);
+        userNameEditText = (EditText) findViewById(R.id.username_edit);
+        passwordEditText = (EditText) findViewById(R.id.password_edit);
+        loginBtn = (Button) findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
         enableDisableBtns();
 
@@ -75,13 +77,15 @@ public class LoginActivity  extends Activity implements View.OnClickListener{
     }
 
 
-
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login_btn:
                 //TODO: save login username and password into SharedPreference
+                String userNameEditTextStr = userNameEditText.getText().toString().trim();
+                String passwordEditTextStr = passwordEditText.getText().toString().trim();
+                saveLoginInfo(userNameEditTextStr,passwordEditTextStr);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
 
@@ -94,24 +98,33 @@ public class LoginActivity  extends Activity implements View.OnClickListener{
 
     }
 
-    protected void enableDisableBtns(){
+    protected void enableDisableBtns() {
         String userNameEditTextStr = userNameEditText.getText().toString().trim();
         String passwordEditTextStr = passwordEditText.getText().toString().trim();
         Log.d("WEI check", "username " + userNameEditTextStr + " passwordStr " + passwordEditTextStr);
 
 
-        if (userNameEditTextStr.length() == 0 || passwordEditTextStr.length()== 0) {
+        if (userNameEditTextStr.length() == 0 || passwordEditTextStr.length() == 0) {
             loginBtn.setEnabled(false);
             loginBtn.setClickable(false);
             loginBtn.setAlpha(0.5f);
-        }
-        else {
+        } else {
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
             loginBtn.setAlpha(1.0f);
         }
 
-
-
     }
+
+    protected void saveLoginInfo(String username,String password){
+            SharedPreferences sharedpreferences = getSharedPreferences("MusicBox", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("username", username);
+            editor.putString("password", password);
+            editor.commit();
+    }
+
+
+
+
 }
